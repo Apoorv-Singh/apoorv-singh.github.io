@@ -63,7 +63,8 @@
 
   /* layered background */
   #stars{position:fixed; inset:0; z-index:0;}
-  .nebula{position:fixed; inset:0; z-index:0; pointer-events:none;
+  .nebula{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; will-change:transform;}
+  .nebula::before{content:''; position:absolute; inset:-12%;
     background:
       radial-gradient(60% 50% at 20% 15%, rgba(165,134,255,.16), transparent 60%),
       radial-gradient(50% 45% at 85% 30%, rgba(85,230,255,.12), transparent 60%),
@@ -76,7 +77,7 @@
   .content{position:relative; z-index:3;}
 
   /* ---- perspective grid floor ---- */
-  .grid-floor{position:fixed; bottom:0; left:0; right:0; height:46vh; z-index:0; pointer-events:none; opacity:.45;
+  .grid-floor{position:fixed; bottom:0; left:0; right:0; height:46vh; z-index:0; pointer-events:none; opacity:.45; will-change:transform;
     background-image:linear-gradient(rgba(85,230,255,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(85,230,255,.14) 1px, transparent 1px);
     background-size:46px 46px;
     transform:perspective(320px) rotateX(62deg); transform-origin:bottom center;
@@ -121,8 +122,8 @@
   .nav-links a:focus-visible{outline:2px solid var(--cyan); outline-offset:4px;}
 
   /* hero */
-  .hero{min-height:100svh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:0 6vw; position:relative;}
-  .orbit-sig{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:min(78vmin,620px); height:min(78vmin,620px); z-index:-2; opacity:.85;}
+  .hero{min-height:100svh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:0 6vw; position:relative; will-change:transform,opacity;}
+  .orbit-sig{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:min(78vmin,620px); height:min(78vmin,620px); z-index:-2; opacity:.85; will-change:transform;}
   .orbit-ring{fill:none; stroke:var(--line); stroke-width:1;}
   .orbit-planet{transform-box:fill-box; transform-origin:center;}
   .eyebrow{color:var(--cyan); font-size:12px; letter-spacing:.35em; text-transform:uppercase; margin-bottom:22px; opacity:0; animation:fadeUp .9s ease .2s forwards;}
@@ -184,6 +185,8 @@
 
   /* skills */
   .skill-groups{display:grid; grid-template-columns:repeat(2,1fr); gap:22px;}
+  .skill-card:last-child{grid-column:1 / -1;}
+  .skill-card:last-child .chips{max-width:640px;}
   .skill-card{border:1px solid var(--line); padding:26px; background:linear-gradient(180deg,#0b0f26aa,#0a0d1f55); transition:border-color .3s,transform .3s; position:relative; backdrop-filter:blur(3px);}
   .skill-card::before,.work-card::before{content:''; position:absolute; top:-1px; left:-1px; width:14px; height:14px; border-top:1px solid var(--cyan); border-left:1px solid var(--cyan); opacity:0; transition:opacity .3s;}
   .skill-card::after,.work-card::after{content:''; position:absolute; bottom:-1px; right:-1px; width:14px; height:14px; border-bottom:1px solid var(--cyan); border-right:1px solid var(--cyan); opacity:0; transition:opacity .3s;}
@@ -196,18 +199,48 @@
   .chip:hover{color:var(--text); border-color:var(--violet); background:rgba(165,134,255,.08); box-shadow:0 0 14px rgba(165,134,255,.2);}
 
   /* work — 3D tilt cards */
-  .work-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px; perspective:1200px;}
+  .work-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px; perspective:1200px;}
   .work-card{border:1px solid var(--line); padding:32px; position:relative; overflow:hidden;
-    background:linear-gradient(160deg,#0d1130,#04050d); transform-style:preserve-3d; transition:transform .15s ease, border-color .3s;}
+    background:linear-gradient(160deg,#0d1130,#04050d); transform-style:preserve-3d; transition:transform .15s ease, border-color .3s;
+    font-family:inherit; color:inherit; text-align:left; width:100%; cursor:pointer; display:block; -webkit-appearance:none; appearance:none;}
   .work-card:hover{border-color:var(--cyan);}
+  .work-card:focus-visible{outline:2px solid var(--cyan); outline-offset:3px;}
   .work-card::before{top:6px; left:6px;} .work-card::after{bottom:6px; right:6px;}
   .work-card .glow{position:absolute; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle,rgba(85,230,255,.18),transparent 70%); pointer-events:none; opacity:0; transition:opacity .3s; transform:translate(-50%,-50%);}
   .work-card:hover .glow{opacity:1;}
   .work-card .idx{position:absolute; top:14px; right:16px; font-family:'JetBrains Mono'; font-size:10px; letter-spacing:.1em; color:var(--muted); opacity:.5; transform:translateZ(10px);}
   .work-metric{font-family:'Orbitron'; font-size:2.3rem; font-weight:900; color:var(--cyan); line-height:1; transform:translateZ(30px); text-shadow:0 0 22px rgba(85,230,255,.35);}
   .work-metric span{font-size:1.1rem; color:var(--amber); margin-left:4px;}
+  .work-icon{width:44px; height:44px; color:var(--cyan); transform:translateZ(30px); filter:drop-shadow(0 0 10px rgba(85,230,255,.35));}
+  .work-icon svg{width:100%; height:100%;}
   .work-card h3{margin-top:14px; font-size:1.05rem; font-weight:600; transform:translateZ(22px);}
   .work-card p{margin-top:10px; color:var(--muted); font-size:.9rem; line-height:1.65; transform:translateZ(14px);}
+  .card-cta{display:inline-block; margin-top:16px; font-family:'JetBrains Mono'; font-size:.74rem; letter-spacing:.08em; color:var(--cyan); opacity:.7; transform:translateZ(18px); transition:opacity .25s,transform .25s;}
+  .work-card:hover .card-cta{opacity:1; transform:translateZ(18px) translateX(3px);}
+
+  /* ---- project story modal ---- */
+  .modal-overlay{position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center; padding:24px;
+    background:rgba(4,5,13,.78); backdrop-filter:blur(8px); opacity:0; pointer-events:none; transition:opacity .3s;}
+  .modal-overlay.open{opacity:1; pointer-events:auto;}
+  .modal-panel{width:100%; max-width:580px; max-height:82vh; overflow-y:auto; position:relative;
+    background:linear-gradient(160deg,#0d1130,#04050d); border:1px solid var(--cyan); padding:42px 38px;
+    box-shadow:0 0 70px rgba(85,230,255,.22); transform:translateY(26px) scale(.96); transition:transform .35s cubic-bezier(.2,.8,.2,1);}
+  .modal-overlay.open .modal-panel{transform:translateY(0) scale(1);}
+  .modal-panel::before{content:''; position:absolute; top:-1px; left:-1px; width:18px; height:18px; border-top:1px solid var(--cyan); border-left:1px solid var(--cyan);}
+  .modal-panel::after{content:''; position:absolute; bottom:-1px; right:-1px; width:18px; height:18px; border-bottom:1px solid var(--cyan); border-right:1px solid var(--cyan);}
+  .modal-close{position:absolute; top:16px; right:16px; width:34px; height:34px; border:1px solid var(--line); background:transparent;
+    color:var(--muted); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s; font-size:16px; line-height:1;}
+  .modal-close:hover{border-color:var(--cyan); color:var(--cyan);}
+  .modal-close:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
+  .modal-icon{width:52px; height:52px; color:var(--cyan); margin-bottom:20px; filter:drop-shadow(0 0 14px rgba(85,230,255,.4));}
+  .modal-icon svg{width:100%; height:100%;}
+  .modal-idx{display:block; font-family:'JetBrains Mono'; font-size:11px; color:var(--amber); letter-spacing:.16em; margin-bottom:10px;}
+  .modal-panel h3{font-family:'Orbitron'; font-size:1.35rem; margin-bottom:16px; line-height:1.3;}
+  .modal-story p{color:var(--muted); font-size:.98rem; line-height:1.8; margin-bottom:14px;}
+  .modal-story p:last-child{margin-bottom:0;}
+  .modal-meta{display:flex; flex-wrap:wrap; gap:9px; margin-top:20px;}
+  .modal-meta span{font-family:'JetBrains Mono'; font-size:.76rem; color:var(--cyan); border:1px solid var(--line); padding:6px 12px;}
+  @media (max-width:600px){.modal-panel{padding:32px 24px;}}
 
   /* contact */
   .contact-panel{border:1px solid var(--line); padding:64px 6vw; text-align:center; background:radial-gradient(ellipse at 50% 0%,#131a3d55,transparent 70%); position:relative; overflow:hidden;}
@@ -255,6 +288,22 @@
 </head>
 <body>
 
+<svg style="position:absolute; width:0; height:0; overflow:hidden;" aria-hidden="true">
+  <defs>
+    <symbol id="icon-quest" viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="2.6" fill="currentColor"/></symbol>
+    <symbol id="icon-route" viewBox="0 0 48 48"><path d="M6 38 Q6 24 18 24 Q30 24 30 10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="38" r="3" fill="currentColor"/><circle cx="30" cy="10" r="3" fill="currentColor"/><rect x="14" y="28" width="12" height="8" rx="1.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="38" r="1.8" fill="currentColor"/><circle cx="23" cy="38" r="1.8" fill="currentColor"/></symbol>
+    <symbol id="icon-dashboard" viewBox="0 0 48 48"><rect x="8" y="26" width="6" height="14" fill="currentColor"/><rect x="18" y="16" width="6" height="24" fill="currentColor"/><rect x="28" y="8" width="6" height="32" fill="currentColor"/><line x1="6" y1="42" x2="40" y2="42" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="icon-widget" viewBox="0 0 48 48"><rect x="10" y="6" width="28" height="36" rx="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 26 h6 l3 -8 l4 12 l3 -6 h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="icon-joystick" viewBox="0 0 48 48"><circle cx="24" cy="14" r="8" fill="none" stroke="currentColor" stroke-width="2"/><line x1="24" y1="22" x2="24" y2="34" stroke="currentColor" stroke-width="2"/><rect x="10" y="34" width="28" height="8" rx="4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="icon-arcade" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2 4"/><rect x="10" y="10" width="9" height="9" rx="2" fill="currentColor" opacity=".85"/><rect x="29" y="10" width="9" height="9" rx="2" fill="currentColor" opacity=".65"/><rect x="10" y="29" width="9" height="9" rx="2" fill="currentColor" opacity=".45"/><rect x="29" y="29" width="9" height="9" rx="2" fill="currentColor" opacity=".3"/></symbol>
+    <symbol id="icon-checkin" viewBox="0 0 48 48"><rect x="8" y="10" width="32" height="30" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><line x1="8" y1="18" x2="40" y2="18" stroke="currentColor" stroke-width="2"/><path d="M16 28 l5 5 l11 -12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-referral" viewBox="0 0 48 48"><circle cx="12" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="36" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="37" r="5" fill="none" stroke="currentColor" stroke-width="2"/><line x1="15.3" y1="17.6" x2="20.7" y2="32.8" stroke="currentColor" stroke-width="2"/><line x1="32.7" y1="17.6" x2="27.3" y2="32.8" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="icon-category" viewBox="0 0 48 48"><path d="M6 10 h14 l18 18 -14 14 -18 -18 z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="14" cy="18" r="2.4" fill="currentColor"/><path d="M34 8 v10 m-5 -5 l5 -5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-tools" viewBox="0 0 48 48"><circle cx="18" cy="18" r="8" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18" r="2.4" fill="currentColor"/><line x1="18" y1="6" x2="18" y2="10" stroke="currentColor" stroke-width="2"/><line x1="18" y1="26" x2="18" y2="30" stroke="currentColor" stroke-width="2"/><line x1="6" y1="18" x2="10" y2="18" stroke="currentColor" stroke-width="2"/><line x1="26" y1="18" x2="30" y2="18" stroke="currentColor" stroke-width="2"/><path d="M28 30 l8 8 m0 -8 l-8 8" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/></symbol>
+    <symbol id="icon-rewards" viewBox="0 0 48 48"><rect x="9" y="20" width="30" height="19" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="9" y="13" width="30" height="8" rx="1.6" fill="none" stroke="currentColor" stroke-width="2"/><line x1="24" y1="13" x2="24" y2="39" stroke="currentColor" stroke-width="2"/><path d="M24 13 C24 6 16 6 16 11 C16 14 20 13 24 13 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M24 13 C24 6 32 6 32 11 C32 14 28 13 24 13 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
 <canvas id="stars"></canvas>
 <div class="grid-floor"></div>
 <div class="nebula"></div>
@@ -289,12 +338,12 @@
 <div class="content">
 
   <nav>
-    <div class="nav-mark">A. SINGH</div>
+    <div class="nav-mark">BUILDER</div>
     <div class="nav-links">
       <a href="#about" data-cursor>About</a>
       <a href="#experience" data-cursor>Experience</a>
       <a href="#skills" data-cursor>Skills</a>
-      <a href="#work" data-cursor>Work</a>
+      <a href="#work" data-cursor>Projects</a>
       <a href="#contact" data-cursor>Contact</a>
       <span class="status"><span class="dot"></span><span id="clock">--:--:--</span></span>
     </div>
@@ -323,7 +372,7 @@
 
     <div class="eyebrow">Senior Technical Product Manager</div>
     <h1 id="heroName" data-text="APOORV SINGH">APOORV SINGH</h1>
-    <p class="role">Building <b>gamification, growth, and AI-driven engagement systems</b> across e-commerce, logistics, and digital health — from Jakarta-scale marketplaces to rural healthcare infrastructure.</p>
+    <p class="role">I build the systems that make people want to hit "claim reward" — <b>gamification, growth, and AI-driven engagement</b> across e-commerce, logistics, and digital health, from Jakarta-scale marketplaces to rural healthcare infrastructure.</p>
     <div class="hero-cta">
       <a class="btn btn-primary magnetic" href="#work" data-cursor><span>View the work</span></a>
       <a class="btn btn-ghost magnetic" href="#contact" data-cursor><span>Get in touch</span></a>
@@ -332,13 +381,13 @@
   </header>
 
   <section id="about">
-    <span class="eyebrow-sm">// transmission_01 — origin</span>
-    <h2 class="section-title reveal">Six years turning behavioral design into measurable growth.</h2>
+    <span class="eyebrow-sm">// ABOUT · origin story</span>
+    <h2 class="section-title reveal">Six years turning behavioral design into measurable growth (and the occasional 3 a.m. dashboard check).</h2>
     <div class="about-grid">
       <div class="about-body reveal">
         <p>I'm a <b>Senior Technical Product Manager</b> based in Bangalore, currently leading product for <b>DiNC</b> at Tata Digital Health — an AI-powered platform putting rural frontline health workers at the center of public healthcare delivery.</p>
         <p>Before that, six years inside the <b>Blibli Group</b> (Blibli.com, Quinbay, Tiket.com) took me from software engineering into product, and from single features into platform-scale systems: quest and reward engines, logistics networks moving 150K+ packages a day, recommendation surfaces, and the messaging infrastructure connecting two merged e-commerce brands.</p>
-        <p>My throughline is <b>behavioral product design</b> — using data, incentives, and AI to make engagement systems that compound.</p>
+        <p>My throughline is <b>behavioral product design</b> — using data, incentives, and AI to make engagement systems that compound instead of just spike on launch day.</p>
       </div>
       <div class="stat-list" data-stagger>
         <div><div class="num counter" data-target="210" data-suffix="%">0%</div><div class="lbl">Quest participation lift from an AI-driven reward engine</div></div>
@@ -373,8 +422,8 @@
         <linearGradient id="visor" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#55e6ff"/><stop offset="1" stop-color="#a586ff"/></linearGradient>
       </defs>
     </svg>
-    <span class="eyebrow-sm">// transmission_02 — flight_log</span>
-    <h2 class="section-title reveal">Flight log</h2>
+    <span class="eyebrow-sm">// EXPERIENCE · flight log</span>
+    <h2 class="section-title reveal">Experience: a flight log, not a highlight reel.</h2>
     <div class="timeline">
       <div class="t-item current reveal">
         <div class="t-dot"></div>
@@ -441,8 +490,8 @@
   </section>
 
   <section id="skills">
-    <span class="eyebrow-sm">// transmission_03 — systems</span>
-    <h2 class="section-title reveal">Systems I operate</h2>
+    <span class="eyebrow-sm">// SKILLS · onboard systems</span>
+    <h2 class="section-title reveal">Skills: the systems I keep bolted to the console.</h2>
     <div class="skill-groups" data-stagger>
       <div class="skill-card"><h3>Growth &amp; Gamification</h3><div class="chips">
         <span class="chip">Quest &amp; Reward Engines</span><span class="chip">AI-Driven Engagement</span><span class="chip">CRM &amp; Lifecycle (MoEngage)</span><span class="chip">A/B Testing</span><span class="chip">Recommendation Systems</span></div></div>
@@ -452,24 +501,111 @@
         <span class="chip">iOS Live Activities</span><span class="chip">PWA / WebView</span><span class="chip">SSR vs CSR</span><span class="chip">Datadog · Crashlytics</span></div></div>
       <div class="skill-card"><h3>Applied AI</h3><div class="chips">
         <span class="chip">AI Product Management</span><span class="chip">SCORM-Compliant LMS</span><span class="chip">Behavioral Tracking</span><span class="chip">GrowthBook</span></div></div>
+      <div class="skill-card"><h3>Engineering &amp; Languages</h3><div class="chips">
+        <span class="chip">Vue.js</span><span class="chip">HTML5</span><span class="chip">CSS</span><span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">UI Performance Optimization</span><span class="chip">UI Architecture</span><span class="chip">System Design</span></div></div>
     </div>
   </section>
 
   <section id="work">
-    <span class="eyebrow-sm">// transmission_04 — missions</span>
-    <h2 class="section-title reveal">Selected missions</h2>
+    <span class="eyebrow-sm">// PROJECTS · selected missions</span>
+    <h2 class="section-title reveal">Projects: tap any card, the full story's inside.</h2>
     <div class="work-grid" data-stagger>
-      <div class="work-card tilt"><div class="glow"></div><span class="idx">M-01</span><div class="work-metric"><span class="counter" data-target="210" data-suffix=""></span><span>%</span></div><h3>AI-Driven Quest &amp; Reward Engine</h3><p>Personalized mission generation platform-wide — 140% CVR increase, 30% reduction in marketing spend.</p></div>
-      <div class="work-card tilt"><div class="glow"></div><span class="idx">M-02</span><div class="work-metric">39<span>hubs</span></div><h3>Hybrid Last-Mile Logistics</h3><p>Hub-and-spoke TMS moving 150K+ packages/day, scaling to ~2M on sale peaks, with a hybrid courier model.</p></div>
-      <div class="work-card tilt"><div class="glow"></div><span class="idx">M-03</span><div class="work-metric"><span class="counter" data-target="10" data-suffix=""></span><span>M+</span></div><h3>BES Logistics Dashboard</h3><p>External 3PL SaaS product serving 30 clients and ~$250K in year-one profit.</p></div>
-      <div class="work-card tilt"><div class="glow"></div><span class="idx">M-04</span><div class="work-metric"><span class="counter" data-target="97" data-suffix=""></span><span>%</span></div><h3>iOS Live Activity Widget</h3><p>Real-time order tracking built to Apple's HIG, sustained alongside a ~97% crash-free rate.</p></div>
+
+      <button class="work-card tilt" data-project="quest-engine" aria-haspopup="dialog">
+        <div class="glow"></div><span class="idx">M-01</span>
+        <div class="work-metric"><span class="counter" data-target="210" data-suffix=""></span><span>%</span></div>
+        <h3>AI-Driven Quest &amp; Reward Engine</h3>
+        <p>Personalized mission generation platform-wide — 140% CVR increase, 30% reduction in marketing spend.</p>
+        <span class="card-cta">View story →</span>
+      </button>
+
+      <button class="work-card tilt" data-project="logistics" aria-haspopup="dialog">
+        <div class="glow"></div><span class="idx">M-02</span>
+        <div class="work-metric">39<span>hubs</span></div>
+        <h3>Hybrid Last-Mile Logistics</h3>
+        <p>Hub-and-spoke TMS moving 150K+ packages/day, scaling to ~2M on sale peaks, with a hybrid courier model.</p>
+        <span class="card-cta">View story →</span>
+      </button>
+
+      <button class="work-card tilt" data-project="bes-dashboard" aria-haspopup="dialog">
+        <div class="glow"></div><span class="idx">M-03</span>
+        <div class="work-metric"><span class="counter" data-target="10" data-suffix=""></span><span>M+</span></div>
+        <h3>BES Logistics Dashboard</h3>
+        <p>External 3PL SaaS product serving 30 clients and ~$250K in year-one profit.</p>
+        <span class="card-cta">View story →</span>
+      </button>
+
+      <button class="work-card tilt" data-project="live-activity" aria-haspopup="dialog">
+        <div class="glow"></div><span class="idx">M-04</span>
+        <div class="work-metric"><span class="counter" data-target="97" data-suffix=""></span><span>%</span></div>
+        <h3>iOS Live Activity Widget</h3>
+        <p>Real-time order tracking built to Apple's HIG, sustained alongside a ~97% crash-free rate.</p>
+        <span class="card-cta">View story →</span>
+      </button>
+
+      <button class="work-card tilt" data-project="game-library" aria-haspopup="dialog">
+        <div class="glow"></div><span class="idx">M-05</span>
+        <div class="work-icon"><svg><use href="#icon-joystick"/></svg></div>
+        <h3>Blibli Game Library</h3>
+        <p>11 HTML5 &amp; Vue-based mini-games — Spin the Wheel, Whack-a-Mole, Claw Machine, and more.</p>
+        <span class="card-cta">View story →</span>
+      </button>
+
+      <button class="work-card tilt" data-project="arcade" aria-haspopup="dialog">
+        <div class="glow"></div><span class="idx">M-06</span>
+        <div class="work-icon"><svg><use href="#icon-arcade"/></svg></div>
+        <h3>Blibli Arcade</h3>
+        <p>One hub for every mini-game — solving the old one-icon, one-game ceiling for good.</p>
+        <span class="card-cta">View story →</span>
+      </button>
+
+      <button class="work-card tilt" data-project="checkin" aria-haspopup="dialog">
+        <div class="glow"></div><span class="idx">M-07</span>
+        <div class="work-metric"><span class="counter" data-target="12" data-suffix=""></span><span>%</span></div>
+        <h3>Daily Check-in Widget</h3>
+        <p>A lightweight daily habit loop that lifted app open rate and retention ~12%.</p>
+        <span class="card-cta">View story →</span>
+      </button>
+
+      <button class="work-card tilt" data-project="referral" aria-haspopup="dialog">
+        <div class="glow"></div><span class="idx">M-08</span>
+        <div class="work-icon"><svg><use href="#icon-referral"/></svg></div>
+        <h3>Referral Program</h3>
+        <p>Turned existing shoppers into a trackable, repeatable new-customer acquisition channel.</p>
+        <span class="card-cta">View story →</span>
+      </button>
+
+      <button class="work-card tilt" data-project="category-referral" aria-haspopup="dialog">
+        <div class="glow"></div><span class="idx">M-09</span>
+        <div class="work-icon"><svg><use href="#icon-category"/></svg></div>
+        <h3>Category-Based Referral</h3>
+        <p>A targeted referral variant built to boost new or underperforming categories specifically.</p>
+        <span class="card-cta">View story →</span>
+      </button>
+
+      <button class="work-card tilt" data-project="internal-tools" aria-haspopup="dialog">
+        <div class="glow"></div><span class="idx">M-10</span>
+        <div class="work-icon"><svg><use href="#icon-tools"/></svg></div>
+        <h3>Internal Platform Tools</h3>
+        <p>Game Center, Quest Center, Referral Center &amp; Message Center — the engine room behind it all.</p>
+        <span class="card-cta">View story →</span>
+      </button>
+
+      <button class="work-card tilt" data-project="rewards-engine" aria-haspopup="dialog">
+        <div class="glow"></div><span class="idx">M-11</span>
+        <div class="work-icon"><svg><use href="#icon-rewards"/></svg></div>
+        <h3>Reward Allocation Engine</h3>
+        <p>The decision layer behind every game payout — affinity, fraud, prize caps, and cross-sell, all in one pass.</p>
+        <span class="card-cta">View story →</span>
+      </button>
+
     </div>
   </section>
 
   <section id="contact">
     <div class="contact-panel reveal">
       <h2>Let's build something worth shipping.</h2>
-      <p>Open to Senior PM roles across growth, logistics, mobile, and AI-driven products.</p>
+      <p>Currently scouting for the next mission — open to Senior PM roles across growth, logistics, mobile, and AI-driven products.</p>
       <div class="contact-links">
         <a class="btn btn-primary magnetic btn-icon" href="mailto:apoorvsingh283@gmail.com" data-cursor>
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
@@ -484,6 +620,17 @@
   </section>
 
   <footer>Bangalore, India · Built with a starfield and too much coffee</footer>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle" id="modalPanel">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div class="modal-icon" id="modalIcon"></div>
+      <span class="modal-idx" id="modalIdx"></span>
+      <h3 id="modalTitle"></h3>
+      <div class="modal-story" id="modalStory"></div>
+      <div class="modal-meta" id="modalMeta"></div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -524,6 +671,33 @@ function draw(now){const t=now-start; ctx.clearRect(0,0,w,h);
   requestAnimationFrame(draw);
 }
 requestAnimationFrame(draw);
+
+/* ---------- scroll parallax ---------- */
+if(!reduced){
+  const nebulaEl=document.querySelector('.nebula');
+  const gridFloorEl=document.querySelector('.grid-floor');
+  const orbitEl=document.querySelector('.orbit-sig');
+  const heroEl=document.querySelector('.hero');
+  let pTicking=false;
+  function applyParallax(){
+    const y=window.scrollY;
+    if(nebulaEl) nebulaEl.style.transform=`translateY(${y*0.12}px)`;
+    if(gridFloorEl) gridFloorEl.style.transform=`perspective(320px) rotateX(62deg) translateY(${-y*0.06}px)`;
+    if(orbitEl) orbitEl.style.transform=`translate(-50%, calc(-50% + ${y*0.18}px))`;
+    if(heroEl){
+      const fadeRange=Math.max(320, window.innerHeight*0.75);
+      const fade=Math.max(0, 1-y/fadeRange);
+      heroEl.style.opacity=fade;
+      heroEl.style.transform=`translateY(${y*0.28}px)`;
+      heroEl.style.pointerEvents=fade<0.05?'none':'';
+    }
+    pTicking=false;
+  }
+  window.addEventListener('scroll',()=>{
+    if(!pTicking){ requestAnimationFrame(applyParallax); pTicking=true; }
+  },{passive:true});
+  applyParallax();
+}
 
 /* ---------- HUD clock ---------- */
 const clock=document.getElementById('clock');
@@ -623,6 +797,133 @@ if(!reduced){document.querySelectorAll('.tilt').forEach(card=>{
   });
   card.addEventListener('mouseleave',()=>{card.style.transform='rotateY(0) rotateX(0)';});
 });}
+
+/* ---------- project story modal ---------- */
+const PROJECTS = {
+  'quest-engine':{
+    idx:'M-01', icon:'icon-quest', title:'AI-Driven Quest & Reward Engine',
+    story:[
+      "Built an AI engine that generated personalized quests for each shopper instead of running one static campaign for everyone on the platform.",
+      "The shift from generic to personalized missions moved quest participation up 210%, lifted conversion rate 140%, and cut marketing spend on manual campaign creation by 30% — the system did the targeting work a campaign manager used to do by hand."
+    ],
+    meta:['210% quest participation','140% CVR','30% lower marketing spend']
+  },
+  'logistics':{
+    idx:'M-02', icon:'icon-route', title:'Hybrid Last-Mile Logistics',
+    story:[
+      "Owned Blibli's Transportation Management System across roughly 39 hubs, handling ~150K packages a day and scaling to ~2M on sale peaks.",
+      "Rather than routing every delivery through third-party couriers like Grab and Gojek, we built a hybrid in-house courier layer that absorbed about 40% of last-mile volume — avoiding roughly 59% of the courier spend we'd otherwise have needed."
+    ],
+    meta:['~39 hubs','~150K packages/day','~40% volume via hybrid courier']
+  },
+  'bes-dashboard':{
+    idx:'M-03', icon:'icon-dashboard', title:'BES Logistics Dashboard',
+    story:[
+      "Shipped BES as an external SaaS product for third-party logistics partners, not just an internal tool for our own fleet.",
+      "It now runs for roughly 30 clients, has processed 10M+ packages, and generated about $250K in profit in its first year."
+    ],
+    meta:['30 clients','10M+ packages','~$250K year-one profit']
+  },
+  'live-activity':{
+    idx:'M-04', icon:'icon-widget', title:'iOS Live Activity Widget',
+    story:[
+      "Designed a real-time delivery-tracking Live Activity for iOS, built to Apple's Human Interface Guidelines so it felt native instead of bolted-on.",
+      "It shipped alongside a broader performance push — migrating monitoring to Datadog and leaning on Firebase Crashlytics — that kept the app at roughly a 97% crash-free rate."
+    ],
+    meta:['Built to Apple HIG','~97% crash-free rate']
+  },
+  'game-library':{
+    idx:'M-05', icon:'icon-joystick', title:'Blibli Game Library',
+    story:[
+      "Built and shipped a library of 11 HTML5 and Vue-based mini-games designed to live inside Blibli's engagement surfaces, including Spin the Wheel, Whack-a-Mole, Scavenger Hunt, Pick the Box, Shake the Gift Box, Red Light Green Light, a Multiplayer Game, and a Claw Machine Game.",
+      "The goal was simple: turn a static promo banner into something people actually wanted to play, then feed the resulting engagement back into the reward and quest systems."
+    ],
+    meta:['11 HTML5 / Vue mini-games','Feeds the Quest & Reward Engine']
+  },
+  'arcade':{
+    idx:'M-06', icon:'icon-arcade', title:'Blibli Arcade',
+    story:[
+      "The game library ran into a real ceiling: the floating game icon on the app could only ever launch one game at a time, so most of the library sat unused behind whichever game happened to be featured.",
+      "Blibli Arcade solved that by consolidating the entire library into a single container experience — one entry point that could host and switch between multiple games instead of being locked to just one."
+    ],
+    meta:['Multi-game container platform','Replaced the single-game floating icon']
+  },
+  'checkin':{
+    idx:'M-07', icon:'icon-checkin', title:'Daily Check-in Widget',
+    story:[
+      "Added a lightweight daily check-in widget to the home experience — a small, low-friction reason to open the app every day.",
+      "It moved app open rate and retention by roughly 12%, a reminder that not every growth lever needs to be complicated to work."
+    ],
+    meta:['~12% app open rate lift','~12% retention lift']
+  },
+  'referral':{
+    idx:'M-08', icon:'icon-referral', title:'Referral Program',
+    story:[
+      "Built a referral program to turn existing shoppers into an acquisition channel, incentivizing them to bring friends onto the platform.",
+      "It turned word-of-mouth into something trackable and repeatable rather than something that just happened informally."
+    ],
+    meta:['New-customer acquisition channel']
+  },
+  'category-referral':{
+    idx:'M-09', icon:'icon-category', title:'Category-Based Referral',
+    story:[
+      "Extended the referral model to target specific categories instead of the platform as a whole.",
+      "Referral incentives were steered toward new or low-performing categories, giving them an acquisition boost the broader, platform-wide referral program wasn't built to provide."
+    ],
+    meta:['Category-targeted incentives','Built on the core referral engine']
+  },
+  'internal-tools':{
+    idx:'M-10', icon:'icon-tools', title:'Internal Platform Tools',
+    story:[
+      "Developed and managed the internal tooling that made everything else on this page possible.",
+      "Game Center is a self-serve game-configuration platform so business teams could launch games without engineering support. Quest Center is a Kafka-based, event-driven reward system triggered by actions like add-to-cart and purchase. Referral Center and Message Center are the internal systems powering referral and messaging campaigns platform-wide."
+    ],
+    meta:['Game Center','Quest Center','Referral Center','Message Center']
+  },
+  'rewards-engine':{
+    idx:'M-11', icon:'icon-rewards', title:'Reward Allocation Engine',
+    story:[
+      "Games and quests can generate a win — but deciding what a customer actually receives for that win is its own problem. Built the reward allocation engine that made that call, instead of handing every winner the same static prize.",
+      "The engine ran a customer through several logic layers before releasing a reward: category affinity, so the reward matched what the customer actually shopped for; a fraud check to screen out abuse before payout; a grand-prize eligibility check that blocked repeat wins if a customer had already claimed the top prize; and cross-sell identification, which surfaced vouchers tied to categories the customer hadn't shopped yet."
+    ],
+    meta:['Category affinity','Fraud check','Grand-prize eligibility cap','Cross-sell identification','Cross-sell vouchers']
+  }
+};
+
+const modalOverlay=document.getElementById('modalOverlay');
+const modalPanel=document.getElementById('modalPanel');
+const modalClose=document.getElementById('modalClose');
+const modalIcon=document.getElementById('modalIcon');
+const modalIdx=document.getElementById('modalIdx');
+const modalTitle=document.getElementById('modalTitle');
+const modalStory=document.getElementById('modalStory');
+const modalMeta=document.getElementById('modalMeta');
+let lastFocused=null;
+
+function openProject(id, triggerEl){
+  const p=PROJECTS[id];
+  if(!p) return;
+  modalIcon.innerHTML=`<svg><use href="#${p.icon}"/></svg>`;
+  modalIdx.textContent=p.idx+' · MISSION LOG';
+  modalTitle.textContent=p.title;
+  modalStory.innerHTML=p.story.map(t=>`<p>${t}</p>`).join('');
+  modalMeta.innerHTML=p.meta.map(m=>`<span>${m}</span>`).join('');
+  lastFocused=triggerEl||document.activeElement;
+  modalOverlay.classList.add('open');
+  document.body.style.overflow='hidden';
+  modalClose.focus();
+}
+function closeProject(){
+  modalOverlay.classList.remove('open');
+  document.body.style.overflow='';
+  if(lastFocused) lastFocused.focus();
+}
+document.querySelectorAll('.work-card[data-project]').forEach(card=>{
+  card.addEventListener('click',()=>openProject(card.dataset.project, card));
+});
+modalClose.addEventListener('click',closeProject);
+modalOverlay.addEventListener('click',e=>{ if(e.target===modalOverlay) closeProject(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape' && modalOverlay.classList.contains('open')) closeProject(); });
 </script>
 </body>
 </html>
