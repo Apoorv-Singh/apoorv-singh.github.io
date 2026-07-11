@@ -3,7 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apoorv Singh — Product Manager</title>
+
+<!-- Primary SEO -->
+<title>Apoorv Singh — Senior Product Manager | Growth, Gamification &amp; AI</title>
+<meta name="description" content="Apoorv Singh is a Bangalore-based Senior Product Manager with 6+ years across e-commerce, logistics, and digital health — building gamification, growth, and AI-driven engagement systems. Portfolio, experience, and contact.">
+<meta name="keywords" content="Apoorv Singh, Senior Product Manager, Product Manager Bangalore, Growth PM, Gamification, AI Product Manager, Logistics PM, Digital Health PM, Mobile PM, MoEngage, A/B Testing">
+<meta name="author" content="Apoorv Singh">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#04050d">
+<link rel="canonical" href="https://apoorvsingh.com/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Apoorv Singh — Senior Product Manager | Growth, Gamification &amp; AI">
+<meta property="og:description" content="6+ years building gamification, growth, and AI-driven engagement systems across e-commerce, logistics, and digital health.">
+<meta property="og:url" content="https://apoorvsingh.com/">
+<meta property="og:site_name" content="Apoorv Singh — Portfolio">
+<meta property="og:image" content="https://apoorvsingh.com/og-cover.png">
+<meta property="profile:first_name" content="Apoorv">
+<meta property="profile:last_name" content="Singh">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Apoorv Singh — Senior Product Manager">
+<meta name="twitter:description" content="6+ years building gamification, growth, and AI-driven engagement systems across e-commerce, logistics, and digital health.">
+<meta name="twitter:image" content="https://apoorvsingh.com/og-cover.png">
+
+<!-- Structured data: Person -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Apoorv Singh",
+  "jobTitle": "Senior Technical Product Manager",
+  "email": "mailto:apoorvsingh283@gmail.com",
+  "url": "https://apoorvsingh.com/",
+  "address": { "@type": "PostalAddress", "addressLocality": "Bangalore", "addressCountry": "IN" },
+  "worksFor": { "@type": "Organization", "name": "Tata MD (Tata Digital Health)" },
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "KIIT University" },
+  "knowsAbout": ["Product Management","Growth","Gamification","AI Product Management","Customer Lifecycle Management","A/B Testing","Logistics","Digital Health","Recommendation Systems","Mobile Product"],
+  "description": "Senior Product Manager with 6+ years across e-commerce, logistics, and digital health, specializing in gamification, growth, and AI-driven engagement systems."
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -33,6 +75,35 @@
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
   .content{position:relative; z-index:3;}
 
+  /* ---- perspective grid floor ---- */
+  .grid-floor{position:fixed; bottom:0; left:0; right:0; height:46vh; z-index:0; pointer-events:none; opacity:.45;
+    background-image:linear-gradient(rgba(85,230,255,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(85,230,255,.14) 1px, transparent 1px);
+    background-size:46px 46px;
+    transform:perspective(320px) rotateX(62deg); transform-origin:bottom center;
+    -webkit-mask-image:linear-gradient(transparent 0%, #000 70%); mask-image:linear-gradient(transparent 0%, #000 70%);
+    animation:gridRun 7s linear infinite;}
+  @keyframes gridRun{from{background-position:0 0;} to{background-position:0 46px;}}
+
+  /* ---- scanlines + HUD frame ---- */
+  .scan{position:fixed; inset:0; z-index:38; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
+    background:repeating-linear-gradient(180deg,#fff 0 1px, transparent 1px 3px);}
+  .hud{position:fixed; inset:0; z-index:40; pointer-events:none;}
+  .hud .corner{position:absolute; width:32px; height:32px; border:1px solid var(--cyan); opacity:.55; box-shadow:0 0 12px rgba(85,230,255,.25);}
+  .hud .tl{top:14px; left:14px; border-right:0; border-bottom:0;}
+  .hud .tr{top:14px; right:14px; border-left:0; border-bottom:0;}
+  .hud .bl{bottom:14px; left:14px; border-right:0; border-top:0;}
+  .hud .br{bottom:14px; right:14px; border-left:0; border-top:0;}
+  .hud .tick{position:absolute; font-family:'JetBrains Mono'; font-size:9px; letter-spacing:.14em; color:var(--muted); opacity:.6;}
+  .hud .lat{bottom:18px; left:58px;} .hud .sys{bottom:18px; right:58px;}
+  .hud .edge{position:absolute; top:50%; width:1px; height:44px; margin-top:-22px; background:linear-gradient(transparent,var(--cyan),transparent); opacity:.4;}
+  .hud .edge.l{left:14px;} .hud .edge.r{right:14px;}
+  @media (max-width:760px){.hud .tick{display:none;} .grid-floor{opacity:.28;}}
+
+  /* status pill in nav */
+  .status{display:flex; align-items:center; gap:8px; font-family:'JetBrains Mono'; font-size:10px; letter-spacing:.12em; color:var(--muted);}
+  .status .dot{width:6px; height:6px; border-radius:50%; background:#3ef2a0; box-shadow:0 0 8px #3ef2a0; animation:blink 1.6s ease-in-out infinite;}
+  @keyframes blink{0%,100%{opacity:1;} 50%{opacity:.25;}}
+
   /* custom cursor */
   .cursor{position:fixed; width:9px; height:9px; border-radius:50%; background:var(--cyan); z-index:999; pointer-events:none; transform:translate(-50%,-50%); mix-blend-mode:screen; transition:width .2s,height .2s,background .2s;}
   .cursor-ring{position:fixed; width:38px; height:38px; border:1px solid rgba(85,230,255,.5); border-radius:50%; z-index:999; pointer-events:none; transform:translate(-50%,-50%); transition:width .25s,height .25s,border-color .25s;}
@@ -51,14 +122,17 @@
 
   /* hero */
   .hero{min-height:100svh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:0 6vw; position:relative;}
-  .orbit-sig{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:min(78vmin,620px); height:min(78vmin,620px); z-index:-1; opacity:.9;}
+  .orbit-sig{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:min(78vmin,620px); height:min(78vmin,620px); z-index:-2; opacity:.85;}
   .orbit-ring{fill:none; stroke:var(--line); stroke-width:1;}
   .orbit-planet{transform-box:fill-box; transform-origin:center;}
   .eyebrow{color:var(--cyan); font-size:12px; letter-spacing:.35em; text-transform:uppercase; margin-bottom:22px; opacity:0; animation:fadeUp .9s ease .2s forwards;}
-  .hero h1{font-size:clamp(2.6rem,9vw,6.6rem); font-weight:900; line-height:1.02;
+  .hero::before{content:''; position:absolute; inset:0; z-index:-1;
+    background:radial-gradient(ellipse 48% 42% at 50% 50%, rgba(4,5,13,.82), rgba(4,5,13,.35) 55%, transparent 72%);}
+  .hero h1{font-size:clamp(2.6rem,9vw,6.6rem); font-weight:900; line-height:1.02; white-space:nowrap;
     background:linear-gradient(180deg,#fff 0%,#c9d4ff 55%,#7c8ad4 100%); -webkit-background-clip:text; background-clip:text; color:transparent;
-    text-shadow:0 0 60px rgba(85,230,255,.18);}
-  .hero h1 .ch{display:inline-block;}
+    text-shadow:0 0 60px rgba(85,230,255,.18); opacity:0; animation:fadeUp .7s ease .15s forwards;}
+  .hero h1 .ch{display:inline-block; text-align:center;}
+  .hero h1 .ch.sp{width:.3em;}
   .hero .role{margin-top:22px; font-size:clamp(1rem,2.4vw,1.35rem); color:var(--muted); max-width:660px; opacity:0; animation:fadeUp .9s ease 1.1s forwards;}
   .hero .role b{color:var(--text); font-weight:600;}
   .hero-cta{margin-top:44px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center; opacity:0; animation:fadeUp .9s ease 1.35s forwards;}
@@ -103,28 +177,34 @@
   .t-item.current .t-dot{background:var(--cyan); animation:beacon 2.2s ease-in-out infinite;}
   @keyframes beacon{0%,100%{box-shadow:0 0 0 0 rgba(85,230,255,.5);} 50%{box-shadow:0 0 0 8px rgba(85,230,255,0);}}
   .t-period{color:var(--amber); font-family:'JetBrains Mono'; font-size:.76rem; letter-spacing:.1em; margin-bottom:6px;}
-  .t-role{font-family:'Orbitron'; font-size:1.2rem; font-weight:700; margin-bottom:2px;}
+  .t-role{font-family:'Orbitron'; font-size:1.2rem; font-weight:700; margin:0 0 2px;}
   .t-org{color:var(--violet); font-size:.92rem; margin-bottom:14px;}
   .t-item ul{color:var(--muted); font-size:.95rem; line-height:1.7; padding-left:18px;}
   .t-item li{margin-bottom:6px;} .t-item li::marker{color:var(--cyan);}
 
   /* skills */
   .skill-groups{display:grid; grid-template-columns:repeat(2,1fr); gap:22px;}
-  .skill-card{border:1px solid var(--line); padding:26px; background:linear-gradient(180deg,#0b0f26aa,#0a0d1f55); transition:border-color .3s,transform .3s; position:relative;}
-  .skill-card:hover{border-color:var(--cyan); transform:translateY(-4px);}
-  .skill-card h3{font-size:.9rem; color:var(--cyan); letter-spacing:.06em; margin-bottom:16px; text-transform:uppercase;}
+  .skill-card{border:1px solid var(--line); padding:26px; background:linear-gradient(180deg,#0b0f26aa,#0a0d1f55); transition:border-color .3s,transform .3s; position:relative; backdrop-filter:blur(3px);}
+  .skill-card::before,.work-card::before{content:''; position:absolute; top:-1px; left:-1px; width:14px; height:14px; border-top:1px solid var(--cyan); border-left:1px solid var(--cyan); opacity:0; transition:opacity .3s;}
+  .skill-card::after,.work-card::after{content:''; position:absolute; bottom:-1px; right:-1px; width:14px; height:14px; border-bottom:1px solid var(--cyan); border-right:1px solid var(--cyan); opacity:0; transition:opacity .3s;}
+  .skill-card:hover,.work-card:hover{border-color:var(--cyan); transform:translateY(-4px);}
+  .skill-card:hover::before,.skill-card:hover::after,.work-card:hover::before,.work-card:hover::after{opacity:1;}
+  .skill-card h3{font-size:.9rem; color:var(--cyan); letter-spacing:.06em; margin-bottom:16px; text-transform:uppercase; display:flex; align-items:center; gap:8px;}
+  .skill-card h3::before{content:''; width:6px; height:6px; background:var(--cyan); box-shadow:0 0 8px var(--cyan); flex:0 0 auto;}
   .chips{display:flex; flex-wrap:wrap; gap:9px;}
-  .chip{font-size:.78rem; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:2px; transition:all .25s;}
-  .chip:hover{color:var(--text); border-color:var(--violet); background:rgba(165,134,255,.08);}
+  .chip{font-size:.78rem; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:2px; transition:all .25s; font-family:'JetBrains Mono';}
+  .chip:hover{color:var(--text); border-color:var(--violet); background:rgba(165,134,255,.08); box-shadow:0 0 14px rgba(165,134,255,.2);}
 
   /* work — 3D tilt cards */
   .work-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px; perspective:1200px;}
   .work-card{border:1px solid var(--line); padding:32px; position:relative; overflow:hidden;
     background:linear-gradient(160deg,#0d1130,#04050d); transform-style:preserve-3d; transition:transform .15s ease, border-color .3s;}
   .work-card:hover{border-color:var(--cyan);}
+  .work-card::before{top:6px; left:6px;} .work-card::after{bottom:6px; right:6px;}
   .work-card .glow{position:absolute; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle,rgba(85,230,255,.18),transparent 70%); pointer-events:none; opacity:0; transition:opacity .3s; transform:translate(-50%,-50%);}
   .work-card:hover .glow{opacity:1;}
-  .work-metric{font-family:'Orbitron'; font-size:2.3rem; font-weight:900; color:var(--cyan); line-height:1; transform:translateZ(30px);}
+  .work-card .idx{position:absolute; top:14px; right:16px; font-family:'JetBrains Mono'; font-size:10px; letter-spacing:.1em; color:var(--muted); opacity:.5; transform:translateZ(10px);}
+  .work-metric{font-family:'Orbitron'; font-size:2.3rem; font-weight:900; color:var(--cyan); line-height:1; transform:translateZ(30px); text-shadow:0 0 22px rgba(85,230,255,.35);}
   .work-metric span{font-size:1.1rem; color:var(--amber); margin-left:4px;}
   .work-card h3{margin-top:14px; font-size:1.05rem; font-weight:600; transform:translateZ(22px);}
   .work-card p{margin-top:10px; color:var(--muted); font-size:.9rem; line-height:1.65; transform:translateZ(14px);}
@@ -134,6 +214,8 @@
   .contact-panel h2{font-size:clamp(1.8rem,4vw,2.8rem); margin-bottom:18px;}
   .contact-panel p{color:var(--muted); margin-bottom:34px;}
   .contact-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+  .btn-icon{display:inline-flex; align-items:center; gap:10px;}
+  .btn-icon svg{flex:0 0 auto; position:relative; z-index:2;}
   footer{text-align:center; padding:40px 6vw 60px; color:var(--muted); font-size:.78rem;}
 
   /* ---- flying ship ---- */
@@ -174,8 +256,17 @@
 <body>
 
 <canvas id="stars"></canvas>
+<div class="grid-floor"></div>
 <div class="nebula"></div>
 <div class="grain"></div>
+<div class="scan"></div>
+<div class="hud" aria-hidden="true">
+  <div class="corner tl"></div><div class="corner tr"></div>
+  <div class="corner bl"></div><div class="corner br"></div>
+  <div class="edge l"></div><div class="edge r"></div>
+  <div class="tick lat" id="hudLat">12.9716°N · 77.5946°E</div>
+  <div class="tick sys" id="hudSys">SYS · ONLINE</div>
+</div>
 
 <!-- original fighter craft (not based on any existing IP) -->
 <svg class="ship" id="ship" viewBox="0 0 120 60" aria-hidden="true">
@@ -205,6 +296,7 @@
       <a href="#skills" data-cursor>Skills</a>
       <a href="#work" data-cursor>Work</a>
       <a href="#contact" data-cursor>Contact</a>
+      <span class="status"><span class="dot"></span><span id="clock">--:--:--</span></span>
     </div>
   </nav>
 
@@ -222,14 +314,14 @@
       <g style="transform-origin:300px 300px; animation:spinA 46s linear infinite reverse;">
         <circle class="orbit-planet" cx="300" cy="10" r="4" fill="var(--pink)"/>
       </g>
-      <circle cx="300" cy="300" r="30" fill="url(#core)"/>
+      <circle cx="300" cy="300" r="20" fill="url(#core)" opacity=".65"/>
       <defs>
-        <radialGradient id="core"><stop offset="0%" stop-color="#dff6ff"/><stop offset="60%" stop-color="#55e6ff"/><stop offset="100%" stop-color="#1a3a66"/></radialGradient>
+        <radialGradient id="core"><stop offset="0%" stop-color="#9fdcff"/><stop offset="55%" stop-color="#3aa9d4"/><stop offset="100%" stop-color="#16305a"/></radialGradient>
       </defs>
     </svg>
     <style>@keyframes spinA{to{transform:rotate(360deg);}}@keyframes spinB{to{transform:rotate(360deg);}}</style>
 
-    <div class="eyebrow">Senior Product Manager</div>
+    <div class="eyebrow">Senior Technical Product Manager</div>
     <h1 id="heroName" data-text="APOORV SINGH">APOORV SINGH</h1>
     <p class="role">Building <b>gamification, growth, and AI-driven engagement systems</b> across e-commerce, logistics, and digital health — from Jakarta-scale marketplaces to rural healthcare infrastructure.</p>
     <div class="hero-cta">
@@ -244,7 +336,7 @@
     <h2 class="section-title reveal">Six years turning behavioral design into measurable growth.</h2>
     <div class="about-grid">
       <div class="about-body reveal">
-        <p>I'm a <b>Senior Product Manager</b> based in Bangalore, currently leading product for <b>DiNC</b> at Tata Digital Health — an AI-powered platform putting rural frontline health workers at the center of public healthcare delivery.</p>
+        <p>I'm a <b>Senior Technical Product Manager</b> based in Bangalore, currently leading product for <b>DiNC</b> at Tata Digital Health — an AI-powered platform putting rural frontline health workers at the center of public healthcare delivery.</p>
         <p>Before that, six years inside the <b>Blibli Group</b> (Blibli.com, Quinbay, Tiket.com) took me from software engineering into product, and from single features into platform-scale systems: quest and reward engines, logistics networks moving 150K+ packages a day, recommendation surfaces, and the messaging infrastructure connecting two merged e-commerce brands.</p>
         <p>My throughline is <b>behavioral product design</b> — using data, incentives, and AI to make engagement systems that compound.</p>
       </div>
@@ -287,55 +379,62 @@
       <div class="t-item current reveal">
         <div class="t-dot"></div>
         <div class="t-period">06/2026 — PRESENT</div>
-        <div class="t-role">Senior Product Manager</div>
-        <div class="t-org">Tata MD · Tata Digital Health</div>
+        <h3 class="t-role">Senior Technical Product Manager</h3>
+        <div class="t-org">Tata MD · Tata Digital Health · Bangalore</div>
         <ul>
-          <li>Leading product for DiNC, an ABDM Milestone 3–compliant AI platform serving rural frontline health workers.</li>
-          <li>Driving DPDP Act compliance across the platform's data and consent architecture.</li>
+          <li>Lead product for DiNC (Digital Nerve Centre), an AI-powered public-sector platform that puts rural frontline health workers at the center of primary-care delivery — connecting health centres with virtual consultations, care coordination, and digital health records.</li>
+          <li>Own the product roadmap and cross-functional discovery across engineering and clinical stakeholders to scale accessible care across rural India.</li>
+          <li>Drive ABDM Milestone 3 compliance and active DPDP Act work across the platform's data, consent, and interoperability architecture.</li>
         </ul>
       </div>
       <div class="t-item reveal">
         <div class="t-dot"></div>
         <div class="t-period">02/2026 — 06/2026</div>
-        <div class="t-role">Senior Product Manager</div>
-        <div class="t-org">Tiket.com · Blibli Group</div>
+        <h3 class="t-role">Senior Product Manager · Tiket.com</h3>
+        <div class="t-org">Blibli Group · Bangalore</div>
         <ul>
-          <li>Owned the CLM roadmap via MoEngage — quests, referrals, and engagement loops shared across Blibli and Tiket.</li>
-          <li>Led cross-functional squads shipping A/B-tested engagement systems to lift CTR and repeat purchase rate.</li>
+          <li>Owned the post-merger CLM and gamification roadmap on MoEngage — quests, referrals, and engagement loops — driving retention and repeat purchase across the travel vertical.</li>
+          <li>Extended the shared engagement platform so games, quests, and quizzes built for Blibli became reusable inside Tiket, cutting rebuild effort across squads.</li>
+          <li>Led cross-functional squads shipping personalized, A/B-tested engagement systems that lifted campaign CTR and user LTV.</li>
         </ul>
       </div>
       <div class="t-item reveal">
         <div class="t-dot"></div>
         <div class="t-period">01/2025 — 02/2026</div>
-        <div class="t-role">Senior Product Manager</div>
-        <div class="t-org">Quinbay / Blibli.com</div>
+        <h3 class="t-role">Senior Product Manager · Quinbay / Blibli.com</h3>
+        <div class="t-org">Blibli Group · Bangalore</div>
         <ul>
-          <li>Led an AI-powered quest engine generating personalized missions — 210% quest participation, 140% CVR, 30% lower marketing spend.</li>
-          <li>Shipped a shared engagement platform making games, quests, and quizzes reusable across Blibli and Tiket.</li>
-          <li>Owned the recommendation service, lifting CTR 5–10% across surfaces through iterative A/B testing.</li>
-          <li>Consolidated Blibli and Tiket's messaging systems post-merger, cutting annual costs ~$120K.</li>
+          <li>Led an AI-driven Quest &amp; Reward System generating personalized missions platform-wide — lifting quest participation 210%, increasing CVR 140%, and reducing marketing spend 30%.</li>
+          <li>Shipped Super Quest / Brand Quest, a sponsored-quest format for add-to-cart, purchase, review, and wishlist actions — driving a 214% add-to-cart increase, 156% transaction increase, and a 52% player transaction rate.</li>
+          <li>Launched a multiplayer gamification campaign that acquired ~40K new users and grew participating brands' total purchase value 103% vs. the prior campaign; A/B testing showed point thresholds above 400 paired with aspirational reward imagery lifted engagement ~30%.</li>
+          <li>Built a merchant growth quest system awarding ad-wallet credits for catalog, voucher, and ad actions, plus a daily check-in widget that improved app open rate and retention ~12%.</li>
+          <li>Owned the recommendation service across key surfaces, lifting CTR 5–10% through iterative ranking changes and structured A/B tests.</li>
+          <li>Consolidated Blibli and Tiket's messaging into a unified email / SMS / WhatsApp platform post-merger, retiring duplicate services and negotiating volume pricing to save ~$120K annually.</li>
         </ul>
       </div>
       <div class="t-item reveal">
         <div class="t-dot"></div>
         <div class="t-period">02/2022 — 01/2025</div>
-        <div class="t-role">Product Manager</div>
-        <div class="t-org">Quinbay / Blibli.com</div>
+        <h3 class="t-role">Product Manager · Quinbay / Blibli.com</h3>
+        <div class="t-org">Blibli Group · Bangalore</div>
         <ul>
-          <li>Owned Blibli's Transportation Management System across 39 hubs — a hybrid courier model absorbed ~40% of last-mile volume, avoiding ~59% of projected hiring spend.</li>
-          <li>Launched gamified scratch cards and seller-funded voucher systems, lifting seller voucher redemption 30% and consecutive order rates 10%.</li>
-          <li>Built a central logistics dashboard cutting runsheet processing time and late orders by 8%, expedited delays by 75%.</li>
-          <li>Shipped BES, an external logistics SaaS product — 30 clients, 10M+ packages, ~$250K profit in year one.</li>
+          <li>Owned Blibli's Transportation Management System across ~39 hubs, handling ~150K packages/day and scaling to ~2M on sale peaks; a hybrid courier model absorbed ~40% of last-mile volume off third-party fleets, avoiding ~59% of projected courier spend.</li>
+          <li>Shipped a central logistics dashboard that cut runsheet processing by ~3 min/runsheet, reduced late orders 8%, cut expedited delays 75%, improved order accuracy 12%, and lowered operational expenses 6%.</li>
+          <li>Built and launched BES, an external logistics SaaS dashboard serving ~30 clients and 10M+ packages, generating ~$250K profit in year one.</li>
+          <li>Launched gamified scratch cards (17% second-order conversion lift, 40% redemption rate) and seller-funded scratch cards that cut dead stock 23%, grew NTV 8%, and raised voucher redemption 30%.</li>
+          <li>Owned the customer-side experience for Blibli Instant — eligibility surfacing, delivery SLAs, and a real-time iOS Live Activity tracking widget.</li>
+          <li>Ran seller onboarding quests that grew monthly SKU uploads 15% among low-catalog sellers, and supported a combined lexical + vector search rollout to improve catalog relevance.</li>
         </ul>
       </div>
       <div class="t-item reveal">
         <div class="t-dot"></div>
         <div class="t-period">08/2020 — 02/2022</div>
-        <div class="t-role">Software Engineer</div>
-        <div class="t-org">Quinbay / Blibli.com</div>
+        <h3 class="t-role">Software Engineer · Quinbay / Blibli.com</h3>
+        <div class="t-org">Blibli Group · Bangalore</div>
         <ul>
-          <li>Built an AI-driven learning management system for Zoomi.ai, using behavioral tracking to monitor learner engagement during coursework, built to SCORM compliance standards.</li>
-          <li>Built and optimized user-facing UI in Vue.js in close collaboration with design and product.</li>
+          <li>Engineered core gamification infrastructure: Game Center (a self-serve game-configuration platform for business users), Quest Center (a Kafka-based event-driven reward pipeline), and a Component CMS no-code page builder.</li>
+          <li>Built an AI-driven learning management system for Zoomi.ai that used behavioral tracking to monitor learner engagement during coursework, delivered to SCORM compliance standards.</li>
+          <li>Built and optimized user-facing UI in Vue.js and instrumented client monitoring via Datadog and Firebase Crashlytics, in close collaboration with design and product.</li>
         </ul>
       </div>
     </div>
@@ -360,10 +459,10 @@
     <span class="eyebrow-sm">// transmission_04 — missions</span>
     <h2 class="section-title reveal">Selected missions</h2>
     <div class="work-grid" data-stagger>
-      <div class="work-card tilt"><div class="glow"></div><div class="work-metric"><span class="counter" data-target="210" data-suffix=""></span><span>%</span></div><h3>AI-Driven Quest &amp; Reward Engine</h3><p>Personalized mission generation platform-wide — 140% CVR increase, 30% reduction in marketing spend.</p></div>
-      <div class="work-card tilt"><div class="glow"></div><div class="work-metric">39<span>hubs</span></div><h3>Hybrid Last-Mile Logistics</h3><p>Hub-and-spoke TMS moving 150K+ packages/day, scaling to ~2M on sale peaks, with a hybrid courier model.</p></div>
-      <div class="work-card tilt"><div class="glow"></div><div class="work-metric"><span class="counter" data-target="10" data-suffix=""></span><span>M+</span></div><h3>BES Logistics Dashboard</h3><p>External 3PL SaaS product serving 30 clients and ~$250K in year-one profit.</p></div>
-      <div class="work-card tilt"><div class="glow"></div><div class="work-metric"><span class="counter" data-target="97" data-suffix=""></span><span>%</span></div><h3>iOS Live Activity Widget</h3><p>Real-time order tracking built to Apple's HIG, sustained alongside a ~97% crash-free rate.</p></div>
+      <div class="work-card tilt"><div class="glow"></div><span class="idx">M-01</span><div class="work-metric"><span class="counter" data-target="210" data-suffix=""></span><span>%</span></div><h3>AI-Driven Quest &amp; Reward Engine</h3><p>Personalized mission generation platform-wide — 140% CVR increase, 30% reduction in marketing spend.</p></div>
+      <div class="work-card tilt"><div class="glow"></div><span class="idx">M-02</span><div class="work-metric">39<span>hubs</span></div><h3>Hybrid Last-Mile Logistics</h3><p>Hub-and-spoke TMS moving 150K+ packages/day, scaling to ~2M on sale peaks, with a hybrid courier model.</p></div>
+      <div class="work-card tilt"><div class="glow"></div><span class="idx">M-03</span><div class="work-metric"><span class="counter" data-target="10" data-suffix=""></span><span>M+</span></div><h3>BES Logistics Dashboard</h3><p>External 3PL SaaS product serving 30 clients and ~$250K in year-one profit.</p></div>
+      <div class="work-card tilt"><div class="glow"></div><span class="idx">M-04</span><div class="work-metric"><span class="counter" data-target="97" data-suffix=""></span><span>%</span></div><h3>iOS Live Activity Widget</h3><p>Real-time order tracking built to Apple's HIG, sustained alongside a ~97% crash-free rate.</p></div>
     </div>
   </section>
 
@@ -372,9 +471,14 @@
       <h2>Let's build something worth shipping.</h2>
       <p>Open to Senior PM roles across growth, logistics, mobile, and AI-driven products.</p>
       <div class="contact-links">
-        <a class="btn btn-primary magnetic" href="mailto:apoorvsingh283@gmail.com" data-cursor><span>apoorvsingh283@gmail.com</span></a>
-        <a class="btn btn-ghost magnetic" href="tel:+919170197779" data-cursor><span>+91 9170197779</span></a>
-        <a class="btn btn-ghost magnetic" href="#" onclick="return false;" data-cursor><span>LinkedIn</span></a>
+        <a class="btn btn-primary magnetic btn-icon" href="mailto:apoorvsingh283@gmail.com" data-cursor>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+          <span>apoorvsingh283@gmail.com</span>
+        </a>
+        <a class="btn btn-ghost magnetic btn-icon" href="https://www.linkedin.com/in/apoorv-singh" target="_blank" rel="noopener noreferrer" data-cursor>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
+          <span>LinkedIn</span>
+        </a>
       </div>
     </div>
   </section>
@@ -421,6 +525,17 @@ function draw(now){const t=now-start; ctx.clearRect(0,0,w,h);
 }
 requestAnimationFrame(draw);
 
+/* ---------- HUD clock ---------- */
+const clock=document.getElementById('clock');
+if(clock){
+  const pad=n=>String(n).padStart(2,'0');
+  (function tickClock(){
+    const d=new Date();
+    clock.textContent=`${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    setTimeout(tickClock,1000);
+  })();
+}
+
 /* ---------- ship flyby ---------- */
 const ship=document.getElementById('ship');
 function launchShip(){
@@ -442,26 +557,36 @@ document.querySelectorAll('[data-cursor]').forEach(el=>{
   el.addEventListener('mouseleave',()=>{cur.classList.remove('big'); ring.classList.remove('big');});
 });
 
-/* ---------- hero decode ---------- */
+/* ---------- hero decode (natural-width pinned, no reflow) ---------- */
 const heroName=document.getElementById('heroName');
-if(!reduced){
-  const target=heroName.dataset.text, glyphs='ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&*+=<>';
-  let frame=0;
+{
+  const target=heroName.dataset.text, glyphs='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   heroName.innerHTML='';
-  const spans=[...target].map(c=>{const s=document.createElement('span'); s.className='ch'; s.textContent=c===' '?'\u00A0':c; s.dataset.final=c; s.style.opacity='0'; heroName.appendChild(s); return s;});
-  let done=0;
-  function decode(){
-    spans.forEach((s,i)=>{
-      if(i*3>frame) return;
-      s.style.opacity='1';
-      if(s.dataset.locked) return;
-      if((frame-i*3)>18){s.textContent=s.dataset.final===' '?'\u00A0':s.dataset.final; s.dataset.locked='1'; done++;}
-      else if(s.dataset.final!==' '){s.textContent=glyphs[Math.floor(Math.random()*glyphs.length)];}
-    });
-    frame++;
-    if(done<spans.length) requestAnimationFrame(decode);
-  }
-  setTimeout(()=>requestAnimationFrame(decode),300);
+  const spans=[...target].map(c=>{
+    const s=document.createElement('span');
+    s.className='ch'+(c===' '?' sp':'');
+    s.textContent=c===' '?'\u00A0':c;
+    s.dataset.final=c;
+    heroName.appendChild(s);
+    return s;
+  });
+  // pin each glyph to its real rendered width so scrambling never shifts the line
+  requestAnimationFrame(()=>{
+    spans.forEach(s=>{ if(!s.classList.contains('sp')) s.style.width=Math.ceil(s.getBoundingClientRect().width+1)+'px'; });
+    if(reduced) return;
+    const settleAt=i=>5+i*2;
+    let tick=0;
+    const iv=setInterval(()=>{
+      let allDone=true;
+      spans.forEach((s,i)=>{
+        if(s.dataset.final===' ') return;
+        if(tick>=settleAt(i)){ s.textContent=s.dataset.final; }
+        else { s.textContent=glyphs[(Math.random()*glyphs.length)|0]; allDone=false; }
+      });
+      tick++;
+      if(allDone) clearInterval(iv);
+    },55);
+  });
 }
 
 /* ---------- reveal + stagger ---------- */
