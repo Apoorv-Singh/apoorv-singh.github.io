@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apoorv Singh — Product Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#04050d; --panel:#0b0f26; --text:#eef1fb; --muted:#8891b8;
+    --cyan:#55e6ff; --amber:#ffb454; --violet:#a586ff; --pink:#ff6fae; --line:#242a4d;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans-serif; overflow-x:hidden; cursor:none;}
+  h1,h2,h3,.disp{font-family:'Orbitron',sans-serif; letter-spacing:.03em;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;}
+  ::selection{background:var(--cyan); color:#04050d;}
+
+  /* layered background */
+  #stars{position:fixed; inset:0; z-index:0;}
+  .nebula{position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(60% 50% at 20% 15%, rgba(165,134,255,.16), transparent 60%),
+      radial-gradient(50% 45% at 85% 30%, rgba(85,230,255,.12), transparent 60%),
+      radial-gradient(55% 50% at 60% 90%, rgba(255,111,174,.10), transparent 60%),
+      radial-gradient(ellipse at 50% -10%, #101638 0%, #04050d 55%);
+    animation:nebulaDrift 26s ease-in-out infinite alternate;}
+  @keyframes nebulaDrift{from{transform:scale(1) translate(0,0);} to{transform:scale(1.12) translate(-2%,2%);}}
+  .grain{position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+  .content{position:relative; z-index:3;}
+
+  /* custom cursor */
+  .cursor{position:fixed; width:9px; height:9px; border-radius:50%; background:var(--cyan); z-index:999; pointer-events:none; transform:translate(-50%,-50%); mix-blend-mode:screen; transition:width .2s,height .2s,background .2s;}
+  .cursor-ring{position:fixed; width:38px; height:38px; border:1px solid rgba(85,230,255,.5); border-radius:50%; z-index:999; pointer-events:none; transform:translate(-50%,-50%); transition:width .25s,height .25s,border-color .25s;}
+  .cursor.big{width:16px; height:16px; background:var(--amber);}
+  .cursor-ring.big{width:64px; height:64px; border-color:var(--amber);}
+
+  /* nav */
+  nav{position:fixed; top:0; left:0; right:0; z-index:50; display:flex; justify-content:space-between; align-items:center;
+    padding:22px 6vw; backdrop-filter:blur(8px); background:linear-gradient(#04050dcc,#04050d00); font-size:13px;}
+  .nav-mark{font-family:'Orbitron'; font-weight:700; font-size:15px; letter-spacing:.12em; color:var(--cyan);}
+  .nav-links{display:flex; gap:28px; color:var(--muted);}
+  .nav-links a{text-decoration:none; transition:color .25s; position:relative; padding-bottom:2px;}
+  .nav-links a::after{content:''; position:absolute; left:0; bottom:-2px; width:0; height:1px; background:var(--cyan); transition:width .3s;}
+  .nav-links a:hover{color:var(--text);} .nav-links a:hover::after{width:100%;}
+  .nav-links a:focus-visible{outline:2px solid var(--cyan); outline-offset:4px;}
+
+  /* hero */
+  .hero{min-height:100svh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:0 6vw; position:relative;}
+  .orbit-sig{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:min(78vmin,620px); height:min(78vmin,620px); z-index:-1; opacity:.9;}
+  .orbit-ring{fill:none; stroke:var(--line); stroke-width:1;}
+  .orbit-planet{transform-box:fill-box; transform-origin:center;}
+  .eyebrow{color:var(--cyan); font-size:12px; letter-spacing:.35em; text-transform:uppercase; margin-bottom:22px; opacity:0; animation:fadeUp .9s ease .2s forwards;}
+  .hero h1{font-size:clamp(2.6rem,9vw,6.6rem); font-weight:900; line-height:1.02;
+    background:linear-gradient(180deg,#fff 0%,#c9d4ff 55%,#7c8ad4 100%); -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow:0 0 60px rgba(85,230,255,.18);}
+  .hero h1 .ch{display:inline-block;}
+  .hero .role{margin-top:22px; font-size:clamp(1rem,2.4vw,1.35rem); color:var(--muted); max-width:660px; opacity:0; animation:fadeUp .9s ease 1.1s forwards;}
+  .hero .role b{color:var(--text); font-weight:600;}
+  .hero-cta{margin-top:44px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center; opacity:0; animation:fadeUp .9s ease 1.35s forwards;}
+  .btn{font-size:14px; font-weight:600; padding:14px 30px; border-radius:2px; text-decoration:none; letter-spacing:.02em;
+    display:inline-block; border:1px solid var(--line); position:relative; overflow:hidden; transition:transform .2s,box-shadow .3s,color .3s,border-color .3s;}
+  .btn span{position:relative; z-index:2;}
+  .btn-primary{background:var(--cyan); color:#04050d; border-color:var(--cyan);}
+  .btn-primary:hover{box-shadow:0 0 34px rgba(85,230,255,.6);}
+  .btn-ghost{background:transparent; color:var(--text);}
+  .btn-ghost::before{content:''; position:absolute; inset:0; background:var(--cyan); transform:translateY(101%); transition:transform .32s cubic-bezier(.6,0,.2,1); z-index:1;}
+  .btn-ghost:hover{color:#04050d; border-color:var(--cyan);} .btn-ghost:hover::before{transform:translateY(0);}
+  .btn:focus-visible{outline:2px solid var(--cyan); outline-offset:3px;}
+  .scroll-cue{position:absolute; bottom:34px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; color:var(--muted); font-size:10px; letter-spacing:.3em; text-transform:uppercase; opacity:0; animation:fadeUp .9s ease 1.6s forwards;}
+  .scroll-line{width:1px; height:34px; background:linear-gradient(var(--cyan),transparent); animation:pulseLine 2s ease-in-out infinite;}
+
+  @keyframes fadeUp{from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);}}
+  @keyframes pulseLine{0%,100%{opacity:.3;} 50%{opacity:1;}}
+
+  /* sections */
+  section{padding:130px 6vw; max-width:1180px; margin:0 auto; position:relative;}
+  .eyebrow-sm{color:var(--cyan); font-family:'JetBrains Mono'; font-size:11px; letter-spacing:.28em; text-transform:uppercase; margin-bottom:16px; display:block;}
+  .section-title{font-size:clamp(1.7rem,3.4vw,2.6rem); font-weight:700; margin-bottom:48px; max-width:740px;}
+  .reveal{opacity:0; transform:translateY(30px); transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1);}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+  [data-stagger]>*{opacity:0; transform:translateY(24px); transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);}
+  [data-stagger].visible>*{opacity:1; transform:translateY(0);}
+
+  /* about */
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:64px; align-items:start;}
+  .about-body p{color:var(--muted); font-size:1.05rem; line-height:1.85; margin-bottom:20px;}
+  .about-body b{color:var(--text);}
+  .stat-list{display:flex; flex-direction:column; gap:26px; border-left:1px solid var(--line); padding-left:28px;}
+  .stat-list .num{font-family:'Orbitron'; font-size:2.1rem; color:var(--amber); font-weight:700;}
+  .stat-list .lbl{color:var(--muted); font-size:.82rem; margin-top:4px;}
+
+  /* timeline */
+  .timeline{position:relative; margin-top:10px;}
+  .timeline::before{content:''; position:absolute; left:9px; top:6px; bottom:6px; width:1px; background:linear-gradient(var(--cyan),var(--violet),var(--pink),transparent);}
+  .t-item{position:relative; padding:0 0 54px 46px;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-dot{position:absolute; left:2px; top:4px; width:17px; height:17px; border-radius:50%; background:var(--bg); border:2px solid var(--cyan); box-shadow:0 0 14px rgba(85,230,255,.5);}
+  .t-item.current .t-dot{background:var(--cyan); animation:beacon 2.2s ease-in-out infinite;}
+  @keyframes beacon{0%,100%{box-shadow:0 0 0 0 rgba(85,230,255,.5);} 50%{box-shadow:0 0 0 8px rgba(85,230,255,0);}}
+  .t-period{color:var(--amber); font-family:'JetBrains Mono'; font-size:.76rem; letter-spacing:.1em; margin-bottom:6px;}
+  .t-role{font-family:'Orbitron'; font-size:1.2rem; font-weight:700; margin-bottom:2px;}
+  .t-org{color:var(--violet); font-size:.92rem; margin-bottom:14px;}
+  .t-item ul{color:var(--muted); font-size:.95rem; line-height:1.7; padding-left:18px;}
+  .t-item li{margin-bottom:6px;} .t-item li::marker{color:var(--cyan);}
+
+  /* skills */
+  .skill-groups{display:grid; grid-template-columns:repeat(2,1fr); gap:22px;}
+  .skill-card{border:1px solid var(--line); padding:26px; background:linear-gradient(180deg,#0b0f26aa,#0a0d1f55); transition:border-color .3s,transform .3s; position:relative;}
+  .skill-card:hover{border-color:var(--cyan); transform:translateY(-4px);}
+  .skill-card h3{font-size:.9rem; color:var(--cyan); letter-spacing:.06em; margin-bottom:16px; text-transform:uppercase;}
+  .chips{display:flex; flex-wrap:wrap; gap:9px;}
+  .chip{font-size:.78rem; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:2px; transition:all .25s;}
+  .chip:hover{color:var(--text); border-color:var(--violet); background:rgba(165,134,255,.08);}
+
+  /* work — 3D tilt cards */
+  .work-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px; perspective:1200px;}
+  .work-card{border:1px solid var(--line); padding:32px; position:relative; overflow:hidden;
+    background:linear-gradient(160deg,#0d1130,#04050d); transform-style:preserve-3d; transition:transform .15s ease, border-color .3s;}
+  .work-card:hover{border-color:var(--cyan);}
+  .work-card .glow{position:absolute; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle,rgba(85,230,255,.18),transparent 70%); pointer-events:none; opacity:0; transition:opacity .3s; transform:translate(-50%,-50%);}
+  .work-card:hover .glow{opacity:1;}
+  .work-metric{font-family:'Orbitron'; font-size:2.3rem; font-weight:900; color:var(--cyan); line-height:1; transform:translateZ(30px);}
+  .work-metric span{font-size:1.1rem; color:var(--amber); margin-left:4px;}
+  .work-card h3{margin-top:14px; font-size:1.05rem; font-weight:600; transform:translateZ(22px);}
+  .work-card p{margin-top:10px; color:var(--muted); font-size:.9rem; line-height:1.65; transform:translateZ(14px);}
+
+  /* contact */
+  .contact-panel{border:1px solid var(--line); padding:64px 6vw; text-align:center; background:radial-gradient(ellipse at 50% 0%,#131a3d55,transparent 70%); position:relative; overflow:hidden;}
+  .contact-panel h2{font-size:clamp(1.8rem,4vw,2.8rem); margin-bottom:18px;}
+  .contact-panel p{color:var(--muted); margin-bottom:34px;}
+  .contact-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+  footer{text-align:center; padding:40px 6vw 60px; color:var(--muted); font-size:.78rem;}
+
+  /* ---- flying ship ---- */
+  .ship{position:fixed; z-index:2; width:74px; pointer-events:none; top:14vh; left:-120px; opacity:0; filter:drop-shadow(0 0 10px rgba(85,230,255,.5));}
+  .ship .thrust{transform-origin:center; animation:thrustPulse .12s linear infinite alternate;}
+  @keyframes thrustPulse{from{opacity:.55; transform:scaleX(.7);} to{opacity:1; transform:scaleX(1.15);}}
+  .ship.fly{animation:flyby 7.5s cubic-bezier(.35,0,.65,1) forwards;}
+  @keyframes flyby{
+    0%{opacity:0; left:-120px; top:14vh; transform:translateY(0) rotate(6deg);}
+    8%{opacity:1;}
+    50%{top:9vh;}
+    92%{opacity:1;}
+    100%{opacity:0; left:calc(100vw + 120px); top:20vh; transform:translateY(0) rotate(6deg);}
+  }
+
+  /* ---- floating sentinel ---- */
+  .sentinel{position:absolute; width:132px; right:2vw; top:-40px; z-index:2; pointer-events:none;
+    filter:drop-shadow(0 12px 26px rgba(85,230,255,.18)); animation:bob 6s ease-in-out infinite;}
+  .sentinel .visor{animation:visorGlow 3.4s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg);} 50%{transform:translateY(-18px) rotate(3deg);}}
+  @keyframes visorGlow{0%,100%{opacity:.75;} 50%{opacity:1;}}
+  .sentinel .tether{stroke-dasharray:3 5; animation:dash 5s linear infinite;}
+  @keyframes dash{to{stroke-dashoffset:-40;}}
+  @media (max-width:900px){.sentinel{width:96px; right:-4px; opacity:.55;}}
+
+  @media (max-width:760px){
+    body{cursor:auto;} .cursor,.cursor-ring{display:none;}
+    .ship{width:54px;}
+    .about-grid,.skill-groups,.work-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;} section{padding:90px 7vw;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important;}
+    body{cursor:auto;} .cursor,.cursor-ring{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+<div class="nebula"></div>
+<div class="grain"></div>
+
+<!-- original fighter craft (not based on any existing IP) -->
+<svg class="ship" id="ship" viewBox="0 0 120 60" aria-hidden="true">
+  <g class="thrust">
+    <polygon points="6,30 30,24 30,36" fill="url(#flame)"/>
+  </g>
+  <path d="M28 30 L74 20 L112 30 L74 40 Z" fill="#161c3d" stroke="#55e6ff" stroke-width="1.5"/>
+  <path d="M74 20 L92 6 L100 24 Z" fill="#0e1330" stroke="#a586ff" stroke-width="1.2"/>
+  <path d="M74 40 L92 54 L100 36 Z" fill="#0e1330" stroke="#a586ff" stroke-width="1.2"/>
+  <ellipse cx="86" cy="30" rx="9" ry="5" fill="#55e6ff" opacity=".85"/>
+  <circle cx="108" cy="30" r="3" fill="#ffb454"/>
+  <defs>
+    <linearGradient id="flame" x1="0" x2="1"><stop offset="0" stop-color="#ff6fae" stop-opacity="0"/><stop offset="1" stop-color="#ffb454"/></linearGradient>
+  </defs>
+</svg>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+
+<div class="content">
+
+  <nav>
+    <div class="nav-mark">A. SINGH</div>
+    <div class="nav-links">
+      <a href="#about" data-cursor>About</a>
+      <a href="#experience" data-cursor>Experience</a>
+      <a href="#skills" data-cursor>Skills</a>
+      <a href="#work" data-cursor>Work</a>
+      <a href="#contact" data-cursor>Contact</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <svg class="orbit-sig" viewBox="0 0 600 600" aria-hidden="true">
+      <circle class="orbit-ring" cx="300" cy="300" r="150"/>
+      <circle class="orbit-ring" cx="300" cy="300" r="220"/>
+      <circle class="orbit-ring" cx="300" cy="300" r="290" stroke-dasharray="2 8"/>
+      <g style="transform-origin:300px 300px; animation:spinA 18s linear infinite;">
+        <circle class="orbit-planet" cx="300" cy="150" r="6" fill="var(--cyan)"/>
+      </g>
+      <g style="transform-origin:300px 300px; animation:spinB 30s linear infinite;">
+        <circle class="orbit-planet" cx="300" cy="80" r="9" fill="var(--amber)"/>
+      </g>
+      <g style="transform-origin:300px 300px; animation:spinA 46s linear infinite reverse;">
+        <circle class="orbit-planet" cx="300" cy="10" r="4" fill="var(--pink)"/>
+      </g>
+      <circle cx="300" cy="300" r="30" fill="url(#core)"/>
+      <defs>
+        <radialGradient id="core"><stop offset="0%" stop-color="#dff6ff"/><stop offset="60%" stop-color="#55e6ff"/><stop offset="100%" stop-color="#1a3a66"/></radialGradient>
+      </defs>
+    </svg>
+    <style>@keyframes spinA{to{transform:rotate(360deg);}}@keyframes spinB{to{transform:rotate(360deg);}}</style>
+
+    <div class="eyebrow">Senior Product Manager</div>
+    <h1 id="heroName" data-text="APOORV SINGH">APOORV SINGH</h1>
+    <p class="role">Building <b>gamification, growth, and AI-driven engagement systems</b> across e-commerce, logistics, and digital health — from Jakarta-scale marketplaces to rural healthcare infrastructure.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary magnetic" href="#work" data-cursor><span>View the work</span></a>
+      <a class="btn btn-ghost magnetic" href="#contact" data-cursor><span>Get in touch</span></a>
+    </div>
+    <div class="scroll-cue"><span>Scroll</span><div class="scroll-line"></div></div>
+  </header>
+
+  <section id="about">
+    <span class="eyebrow-sm">// transmission_01 — origin</span>
+    <h2 class="section-title reveal">Six years turning behavioral design into measurable growth.</h2>
+    <div class="about-grid">
+      <div class="about-body reveal">
+        <p>I'm a <b>Senior Product Manager</b> based in Bangalore, currently leading product for <b>DiNC</b> at Tata Digital Health — an AI-powered platform putting rural frontline health workers at the center of public healthcare delivery.</p>
+        <p>Before that, six years inside the <b>Blibli Group</b> (Blibli.com, Quinbay, Tiket.com) took me from software engineering into product, and from single features into platform-scale systems: quest and reward engines, logistics networks moving 150K+ packages a day, recommendation surfaces, and the messaging infrastructure connecting two merged e-commerce brands.</p>
+        <p>My throughline is <b>behavioral product design</b> — using data, incentives, and AI to make engagement systems that compound.</p>
+      </div>
+      <div class="stat-list" data-stagger>
+        <div><div class="num counter" data-target="210" data-suffix="%">0%</div><div class="lbl">Quest participation lift from an AI-driven reward engine</div></div>
+        <div><div class="num counter" data-target="150" data-suffix="K+">0</div><div class="lbl">Packages/day across a 39-hub logistics network owned end-to-end</div></div>
+        <div><div class="num counter" data-target="10" data-suffix="M+">0</div><div class="lbl">Packages processed by an external logistics SaaS product I shipped</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <!-- original armored spacefarer (an invented sentinel, not a licensed character) -->
+    <svg class="sentinel" viewBox="0 0 120 200" aria-hidden="true">
+      <line class="tether" x1="60" y1="8" x2="60" y2="46" stroke="#55e6ff" stroke-width="1"/>
+      <!-- jetpack -->
+      <rect x="34" y="70" width="14" height="40" rx="4" fill="#141a3a" stroke="#a586ff" stroke-width="1"/>
+      <rect x="72" y="70" width="14" height="40" rx="4" fill="#141a3a" stroke="#a586ff" stroke-width="1"/>
+      <!-- torso -->
+      <rect x="42" y="66" width="36" height="52" rx="12" fill="#1a2148" stroke="#55e6ff" stroke-width="1.5"/>
+      <rect x="52" y="80" width="16" height="10" rx="3" fill="#55e6ff" opacity=".7"/>
+      <circle cx="60" cy="102" r="4" fill="#ffb454"/>
+      <!-- arms -->
+      <rect x="30" y="70" width="12" height="34" rx="6" fill="#161c3d" stroke="#55e6ff" stroke-width="1"/>
+      <rect x="78" y="70" width="12" height="34" rx="6" fill="#161c3d" stroke="#55e6ff" stroke-width="1"/>
+      <!-- legs -->
+      <rect x="46" y="116" width="12" height="40" rx="6" fill="#161c3d" stroke="#55e6ff" stroke-width="1"/>
+      <rect x="62" y="116" width="12" height="40" rx="6" fill="#161c3d" stroke="#55e6ff" stroke-width="1"/>
+      <!-- bubble helmet -->
+      <circle cx="60" cy="46" r="24" fill="#0e1533" stroke="#55e6ff" stroke-width="1.5"/>
+      <path class="visor" d="M44 42 A18 18 0 0 1 76 42 L76 50 A18 14 0 0 1 44 50 Z" fill="url(#visor)"/>
+      <ellipse cx="52" cy="40" rx="5" ry="8" fill="#dff6ff" opacity=".35"/>
+      <defs>
+        <linearGradient id="visor" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#55e6ff"/><stop offset="1" stop-color="#a586ff"/></linearGradient>
+      </defs>
+    </svg>
+    <span class="eyebrow-sm">// transmission_02 — flight_log</span>
+    <h2 class="section-title reveal">Flight log</h2>
+    <div class="timeline">
+      <div class="t-item current reveal">
+        <div class="t-dot"></div>
+        <div class="t-period">06/2026 — PRESENT</div>
+        <div class="t-role">Senior Product Manager</div>
+        <div class="t-org">Tata MD · Tata Digital Health</div>
+        <ul>
+          <li>Leading product for DiNC, an ABDM Milestone 3–compliant AI platform serving rural frontline health workers.</li>
+          <li>Driving DPDP Act compliance across the platform's data and consent architecture.</li>
+        </ul>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-dot"></div>
+        <div class="t-period">02/2026 — 06/2026</div>
+        <div class="t-role">Senior Product Manager</div>
+        <div class="t-org">Tiket.com · Blibli Group</div>
+        <ul>
+          <li>Owned the CLM roadmap via MoEngage — quests, referrals, and engagement loops shared across Blibli and Tiket.</li>
+          <li>Led cross-functional squads shipping A/B-tested engagement systems to lift CTR and repeat purchase rate.</li>
+        </ul>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-dot"></div>
+        <div class="t-period">01/2025 — 02/2026</div>
+        <div class="t-role">Senior Product Manager</div>
+        <div class="t-org">Quinbay / Blibli.com</div>
+        <ul>
+          <li>Led an AI-powered quest engine generating personalized missions — 210% quest participation, 140% CVR, 30% lower marketing spend.</li>
+          <li>Shipped a shared engagement platform making games, quests, and quizzes reusable across Blibli and Tiket.</li>
+          <li>Owned the recommendation service, lifting CTR 5–10% across surfaces through iterative A/B testing.</li>
+          <li>Consolidated Blibli and Tiket's messaging systems post-merger, cutting annual costs ~$120K.</li>
+        </ul>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-dot"></div>
+        <div class="t-period">02/2022 — 01/2025</div>
+        <div class="t-role">Product Manager</div>
+        <div class="t-org">Quinbay / Blibli.com</div>
+        <ul>
+          <li>Owned Blibli's Transportation Management System across 39 hubs — a hybrid courier model absorbed ~40% of last-mile volume, avoiding ~59% of projected hiring spend.</li>
+          <li>Launched gamified scratch cards and seller-funded voucher systems, lifting seller voucher redemption 30% and consecutive order rates 10%.</li>
+          <li>Built a central logistics dashboard cutting runsheet processing time and late orders by 8%, expedited delays by 75%.</li>
+          <li>Shipped BES, an external logistics SaaS product — 30 clients, 10M+ packages, ~$250K profit in year one.</li>
+        </ul>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-dot"></div>
+        <div class="t-period">08/2020 — 02/2022</div>
+        <div class="t-role">Software Engineer</div>
+        <div class="t-org">Quinbay / Blibli.com</div>
+        <ul>
+          <li>Built an AI-driven learning management system for Zoomi.ai, using behavioral tracking to monitor learner engagement during coursework, built to SCORM compliance standards.</li>
+          <li>Built and optimized user-facing UI in Vue.js in close collaboration with design and product.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <span class="eyebrow-sm">// transmission_03 — systems</span>
+    <h2 class="section-title reveal">Systems I operate</h2>
+    <div class="skill-groups" data-stagger>
+      <div class="skill-card"><h3>Growth &amp; Gamification</h3><div class="chips">
+        <span class="chip">Quest &amp; Reward Engines</span><span class="chip">AI-Driven Engagement</span><span class="chip">CRM &amp; Lifecycle (MoEngage)</span><span class="chip">A/B Testing</span><span class="chip">Recommendation Systems</span></div></div>
+      <div class="skill-card"><h3>Platform &amp; Infrastructure</h3><div class="chips">
+        <span class="chip">Platform Consolidation</span><span class="chip">Messaging Systems</span><span class="chip">Logistics / TMS</span><span class="chip">Lexical + Vector Search</span></div></div>
+      <div class="skill-card"><h3>Mobile &amp; Technical</h3><div class="chips">
+        <span class="chip">iOS Live Activities</span><span class="chip">PWA / WebView</span><span class="chip">SSR vs CSR</span><span class="chip">Datadog · Crashlytics</span></div></div>
+      <div class="skill-card"><h3>Applied AI</h3><div class="chips">
+        <span class="chip">AI Product Management</span><span class="chip">SCORM-Compliant LMS</span><span class="chip">Behavioral Tracking</span><span class="chip">GrowthBook</span></div></div>
+    </div>
+  </section>
+
+  <section id="work">
+    <span class="eyebrow-sm">// transmission_04 — missions</span>
+    <h2 class="section-title reveal">Selected missions</h2>
+    <div class="work-grid" data-stagger>
+      <div class="work-card tilt"><div class="glow"></div><div class="work-metric"><span class="counter" data-target="210" data-suffix=""></span><span>%</span></div><h3>AI-Driven Quest &amp; Reward Engine</h3><p>Personalized mission generation platform-wide — 140% CVR increase, 30% reduction in marketing spend.</p></div>
+      <div class="work-card tilt"><div class="glow"></div><div class="work-metric">39<span>hubs</span></div><h3>Hybrid Last-Mile Logistics</h3><p>Hub-and-spoke TMS moving 150K+ packages/day, scaling to ~2M on sale peaks, with a hybrid courier model.</p></div>
+      <div class="work-card tilt"><div class="glow"></div><div class="work-metric"><span class="counter" data-target="10" data-suffix=""></span><span>M+</span></div><h3>BES Logistics Dashboard</h3><p>External 3PL SaaS product serving 30 clients and ~$250K in year-one profit.</p></div>
+      <div class="work-card tilt"><div class="glow"></div><div class="work-metric"><span class="counter" data-target="97" data-suffix=""></span><span>%</span></div><h3>iOS Live Activity Widget</h3><p>Real-time order tracking built to Apple's HIG, sustained alongside a ~97% crash-free rate.</p></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-panel reveal">
+      <h2>Let's build something worth shipping.</h2>
+      <p>Open to Senior PM roles across growth, logistics, mobile, and AI-driven products.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary magnetic" href="mailto:apoorvsingh283@gmail.com" data-cursor><span>apoorvsingh283@gmail.com</span></a>
+        <a class="btn btn-ghost magnetic" href="tel:+919170197779" data-cursor><span>+91 9170197779</span></a>
+        <a class="btn btn-ghost magnetic" href="#" onclick="return false;" data-cursor><span>LinkedIn</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>Bangalore, India · Built with a starfield and too much coffee</footer>
+</div>
+
+<script>
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- starfield + shooting stars ---------- */
+const canvas=document.getElementById('stars'), ctx=canvas.getContext('2d');
+let w,h,cx,cy;
+function resize(){w=canvas.width=innerWidth; h=canvas.height=innerHeight; cx=w/2; cy=h/2;}
+addEventListener('resize',resize); resize();
+const N=Math.min(280,Math.floor(w*h/6000));
+let stars=[];
+for(let i=0;i<N;i++){const a=Math.random()*Math.PI*2; stars.push({x:Math.random()*w,y:Math.random()*h,z:Math.random()*.9+.25,r:Math.random()*1.3+.3,tw:Math.random()*6.28,a,wd:Math.random()*Math.max(w,h)});}
+let shooters=[];
+function spawnShooter(){if(reduced)return; const edge=Math.random()<.5; shooters.push({x:Math.random()*w*.6,y:Math.random()*h*.3,vx:6+Math.random()*4,vy:2.4+Math.random()*2,life:0,max:60+Math.random()*30});}
+setInterval(()=>{if(Math.random()<.5)spawnShooter();},2600);
+let mx=.5,my=.5; addEventListener('mousemove',e=>{mx=e.clientX/w; my=e.clientY/h;});
+const start=performance.now(), WARP=reduced?0:1500;
+function draw(now){const t=now-start; ctx.clearRect(0,0,w,h);
+  const px=(mx-.5)*20, py=(my-.5)*20;
+  stars.forEach(s=>{s.tw+=.02; const fl=.55+Math.sin(s.tw)*.45;
+    let dx=s.x+px*s.z, dy=s.y+py*s.z;
+    if(t<WARP){const p=t/WARP, e=1-Math.pow(1-p,3);
+      const fx=cx+Math.cos(s.a)*s.wd*(1-e), fy=cy+Math.sin(s.a)*s.wd*(1-e);
+      dx=fx+(s.x-fx)*e; dy=fy+(s.y-fy)*e;
+      const streak=(1-e)*28*s.z, g=ctx.createLinearGradient(dx,dy,dx-Math.cos(s.a)*streak,dy-Math.sin(s.a)*streak);
+      g.addColorStop(0,`rgba(170,215,255,${.85*fl})`); g.addColorStop(1,'rgba(170,215,255,0)');
+      ctx.strokeStyle=g; ctx.lineWidth=s.r*(.6+(1-e)*1.5); ctx.beginPath(); ctx.moveTo(dx,dy); ctx.lineTo(dx-Math.cos(s.a)*streak,dy-Math.sin(s.a)*streak); ctx.stroke();
+    } else {ctx.beginPath(); ctx.fillStyle=`rgba(210,225,255,${fl})`; ctx.arc(dx,dy,s.r*s.z*1.4,0,6.28); ctx.fill();}
+  });
+  shooters.forEach(sh=>{sh.x+=sh.vx; sh.y+=sh.vy; sh.life++;
+    const tail=90, g=ctx.createLinearGradient(sh.x,sh.y,sh.x-sh.vx*tail/6,sh.y-sh.vy*tail/6);
+    const op=Math.sin(Math.PI*sh.life/sh.max);
+    g.addColorStop(0,`rgba(255,255,255,${op})`); g.addColorStop(.4,`rgba(85,230,255,${op*.6})`); g.addColorStop(1,'rgba(85,230,255,0)');
+    ctx.strokeStyle=g; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(sh.x,sh.y); ctx.lineTo(sh.x-sh.vx*tail/6,sh.y-sh.vy*tail/6); ctx.stroke();
+  });
+  shooters=shooters.filter(s=>s.life<s.max);
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+
+/* ---------- ship flyby ---------- */
+const ship=document.getElementById('ship');
+function launchShip(){
+  if(reduced || document.hidden) return;
+  ship.classList.remove('fly'); void ship.offsetWidth; ship.classList.add('fly');
+}
+ship.addEventListener('animationend',()=>ship.classList.remove('fly'));
+setTimeout(launchShip,2600);              // first pass right after warp
+setInterval(()=>{ if(Math.random()<.7) launchShip(); }, 11000);
+
+/* ---------- custom cursor ---------- */
+const cur=document.getElementById('cur'), ring=document.getElementById('curRing');
+let rx=0,ry=0,tx=0,ty=0;
+addEventListener('mousemove',e=>{tx=e.clientX; ty=e.clientY; cur.style.left=tx+'px'; cur.style.top=ty+'px';});
+function ringLoop(){rx+=(tx-rx)*.18; ry+=(ty-ry)*.18; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(ringLoop);}
+ringLoop();
+document.querySelectorAll('[data-cursor]').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('big'); ring.classList.add('big');});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('big'); ring.classList.remove('big');});
+});
+
+/* ---------- hero decode ---------- */
+const heroName=document.getElementById('heroName');
+if(!reduced){
+  const target=heroName.dataset.text, glyphs='ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&*+=<>';
+  let frame=0;
+  heroName.innerHTML='';
+  const spans=[...target].map(c=>{const s=document.createElement('span'); s.className='ch'; s.textContent=c===' '?'\u00A0':c; s.dataset.final=c; s.style.opacity='0'; heroName.appendChild(s); return s;});
+  let done=0;
+  function decode(){
+    spans.forEach((s,i)=>{
+      if(i*3>frame) return;
+      s.style.opacity='1';
+      if(s.dataset.locked) return;
+      if((frame-i*3)>18){s.textContent=s.dataset.final===' '?'\u00A0':s.dataset.final; s.dataset.locked='1'; done++;}
+      else if(s.dataset.final!==' '){s.textContent=glyphs[Math.floor(Math.random()*glyphs.length)];}
+    });
+    frame++;
+    if(done<spans.length) requestAnimationFrame(decode);
+  }
+  setTimeout(()=>requestAnimationFrame(decode),300);
+}
+
+/* ---------- reveal + stagger ---------- */
+const io=new IntersectionObserver((es)=>{es.forEach(en=>{
+  if(en.isIntersecting){
+    en.target.classList.add('visible');
+    const kids=en.target.querySelectorAll(':scope > *');
+    if(en.target.hasAttribute('data-stagger')){kids.forEach((k,i)=>{k.style.transitionDelay=(i*90)+'ms';});}
+    io.unobserve(en.target);
+  }
+});},{threshold:.15});
+document.querySelectorAll('.reveal,[data-stagger]').forEach(el=>io.observe(el));
+
+/* ---------- counters ---------- */
+const cio=new IntersectionObserver((es)=>{es.forEach(en=>{
+  if(en.isIntersecting){const el=en.target, tgt=+el.dataset.target, suf=el.dataset.suffix||''; let v=0; const step=tgt/45;
+    (function tick(){v+=step; if(v>=tgt){el.textContent=tgt+suf;} else {el.textContent=Math.floor(v)+suf; requestAnimationFrame(tick);}})();
+    cio.unobserve(el);}
+});},{threshold:.6});
+document.querySelectorAll('.counter').forEach(el=>cio.observe(el));
+
+/* ---------- magnetic buttons ---------- */
+if(!reduced){document.querySelectorAll('.magnetic').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect(); const x=e.clientX-r.left-r.width/2, y=e.clientY-r.top-r.height/2; btn.style.transform=`translate(${x*.25}px,${y*.35}px)`;});
+  btn.addEventListener('mouseleave',()=>{btn.style.transform='translate(0,0)';});
+});}
+
+/* ---------- 3D tilt cards ---------- */
+if(!reduced){document.querySelectorAll('.tilt').forEach(card=>{
+  const glow=card.querySelector('.glow');
+  card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect(); const px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+    card.style.transform=`rotateY(${(px-.5)*10}deg) rotateX(${(.5-py)*10}deg) translateZ(6px)`;
+    if(glow){glow.style.left=(px*r.width)+'px'; glow.style.top=(py*r.height)+'px';}
+  });
+  card.addEventListener('mouseleave',()=>{card.style.transform='rotateY(0) rotateX(0)';});
+});}
+</script>
+</body>
+</html>
